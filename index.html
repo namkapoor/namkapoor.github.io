@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Naman Kapoor - Research</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f9f9f9;
+        }
+
+        nav {
+            background: #2c3e50;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+            cursor: pointer;
+        }
+
+        nav a:hover {
+            color: #3498db;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        section {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+
+        section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            font-size: 3rem;
+            color: #2c3e50;
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        h2 {
+            font-size: 2rem;
+            color: #34495e;
+            margin: 2rem 0 1rem 0;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 0.5rem;
+        }
+
+        .quote {
+            font-style: italic;
+            text-align: center;
+            font-size: 1.3rem;
+            color: #555;
+            margin: 3rem 0;
+            padding: 2rem;
+            background: white;
+            border-left: 4px solid #3498db;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .about-section {
+            display: flex;
+            gap: 2rem;
+            align-items: flex-start;
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .photo-placeholder {
+            width: 250px;
+            height: 250px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 8px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1rem;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-text p {
+            margin-bottom: 1rem;
+            text-align: justify;
+        }
+
+        .scholar-note {
+            background: #e8f4f8;
+            padding: 1rem;
+            border-radius: 5px;
+            margin-bottom: 2rem;
+            border-left: 4px solid #3498db;
+        }
+
+        .scholar-note a {
+            color: #3498db;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .scholar-note a:hover {
+            text-decoration: underline;
+        }
+
+        .project-card {
+            background: white;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .project-content {
+            flex: 1;
+        }
+
+        .project-image {
+            width: 200px;
+            height: 150px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 5px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.9rem;
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .project-card h3 {
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-card p {
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .blog-intro {
+            background: #fff3cd;
+            padding: 1rem;
+            border-radius: 5px;
+            margin-bottom: 2rem;
+            border-left: 4px solid #ffc107;
+            font-style: italic;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #3498db;
+        }
+
+        .blog-post-preview {
+            background: white;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .blog-post-preview:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        .blog-post-preview::before {
+            content: '';
+            position: absolute;
+            left: -2.5rem;
+            top: 1.5rem;
+            width: 12px;
+            height: 12px;
+            background: #3498db;
+            border-radius: 50%;
+            border: 3px solid #f9f9f9;
+        }
+
+        .blog-post-preview h3 {
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+
+        .blog-date {
+            color: #888;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .blog-excerpt {
+            color: #555;
+            margin-top: 0.5rem;
+        }
+
+        .read-more {
+            color: #3498db;
+            font-weight: bold;
+            margin-top: 0.5rem;
+            display: inline-block;
+        }
+
+        .full-post {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .full-post h3 {
+            color: #2c3e50;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .back-button {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-bottom: 2rem;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .back-button:hover {
+            background: #2980b9;
+        }
+
+        .contact-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .contact-item {
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 5px;
+            border-left: 3px solid #3498db;
+        }
+
+        .contact-item strong {
+            display: block;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+
+        .resume-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .resume-button {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-top: 1rem;
+            transition: background 0.3s;
+        }
+
+        .resume-button:hover {
+            background: #2980b9;
+        }
+
+        @media (max-width: 768px) {
+            .about-section {
+                flex-direction: column;
+            }
+
+            .photo-placeholder {
+                width: 100%;
+                height: 200px;
+            }
+
+            .project-card {
+                flex-direction: column;
+            }
+
+            .project-image {
+                width: 100%;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            nav ul {
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a onclick="showSection('home')">Home</a></li>
+            <li><a onclick="showSection('research')">Research</a></li>
+            <li><a onclick="showSection('posts')">Posts</a></li>
+            <li><a onclick="showSection('info')">Info</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <!-- HOME SECTION -->
+        <section id="home" class="active">
+            <h1>Naman Kapoor</h1>
+            
+            <div class="quote">
+                "I would rather have questions that can't be answered than answers that can't be questioned."
+                <br><br>
+                — Richard Feynman
+            </div>
+
+            <h2>About Me</h2>
+            <div class="about-section">
+                <div class="photo-placeholder">
+                    Your Photo Here
+                    <br><br>
+                    (Replace with your image)
+                </div>
+                <div class="about-text">
+                    <p>I am a final year BS-MS Physics student at the Indian Institute of Technology (IIT) Roorkee, graduating in May 2026. Currently ranked first in my department with a CGPA of 9.58/10, I am passionate about nanophotonics and quantum technologies.</p>
+                    
+                    <p>My research interests lie at the intersection of fundamental physics and practical applications, with a focus on experimental and computational work in nanophotonics. I have worked on projects ranging from chromatic metalenses to topological photonic crystals and integrated photon pair sources.</p>
+                    
+                    <p>I will begin my Master's thesis in July 2025 and am currently preparing for PhD applications for Fall 2026. I am particularly interested in nanophotonic applications including AR/VR, LIDAR, and optical interconnects.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- RESEARCH SECTION -->
+        <section id="research">
+            <h1>Research</h1>
+            
+            <div class="scholar-note">
+                For publications and citations, please visit my <a href="https://scholar.google.com" target="_blank">Google Scholar profile</a>.
+            </div>
+
+            <h2>Current Projects</h2>
+            <div id="current-projects"></div>
+
+            <h2>Previous Projects</h2>
+            <div id="previous-projects"></div>
+        </section>
+
+        <!-- POSTS SECTION -->
+        <section id="posts">
+            <h1>Posts</h1>
+            
+            <div class="blog-intro">
+                This section contains useful resources I discover, my philosophy of science, technical and computational details I learn and find useful, research insights, and other thoughts on physics and academia.
+            </div>
+
+            <div class="timeline" id="posts-list"></div>
+        </section>
+
+        <!-- SINGLE POST VIEW -->
+        <section id="single-post">
+            <button class="back-button" onclick="showSection('posts')">← Back to Posts</button>
+            <div id="post-content" class="full-post"></div>
+        </section>
+
+        <!-- INFO SECTION -->
+        <section id="info">
+            <h1>Contact & Info</h1>
+            
+            <div class="contact-section">
+                <h2>Get in Touch</h2>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <strong>Email</strong>
+                        your.email@example.com
+                    </div>
+                    <div class="contact-item">
+                        <strong>Institute</strong>
+                        Indian Institute of Technology Roorkee
+                    </div>
+                    <div class="contact-item">
+                        <strong>Location</strong>
+                        Roorkee, Uttarakhand, India
+                    </div>
+                    <div class="contact-item">
+                        <strong>Google Scholar</strong>
+                        <a href="https://scholar.google.com" target="_blank">View Profile</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="resume-section">
+                <h2>Resume / CV</h2>
+                <p>Download my detailed curriculum vitae for more information about my academic background, research experience, and achievements.</p>
+                <a href="#" class="resume-button" download>Download Resume (PDF)</a>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // ========== DATA SECTION - EDIT HERE TO ADD NEW CONTENT ==========
+        
+        // CURRENT PROJECTS
+        const currentProjects = [
+            {
+                title: "Master's Thesis Project",
+                description: "Starting July 2025. Details to be added soon.",
+                image: "" // Leave empty for placeholder, or add image URL
+            }
+        ];
+
+        // PREVIOUS PROJECTS
+        const previousProjects = [
+            {
+                title: "Strongly Chromatic Metalens at 4.2 Microns",
+                description: "Remote internship at the University of Washington. Designed and simulated metalenses with strong chromatic dispersion for mid-infrared applications. Manuscript currently in preparation. Utilized FDTD simulations in COMSOL to optimize metalens performance.",
+                image: "" // Add image URL here
+            },
+            {
+                title: "Hermitian and Non-Hermitian Topological States in Valley Hall Photonic Crystals",
+                description: "Bachelor thesis project completed in May 2025. Investigated topological photonic states in valley Hall systems, exploring both Hermitian and non-Hermitian regimes. Computational study using FDTD simulations to characterize edge states and topological properties.",
+                image: ""
+            },
+            {
+                title: "Integrated Photon Pair Source",
+                description: "DAAD-WISE internship at Leibniz University, Germany (Summer). Experimental work focused on the characterization of integrated photon pair sources for quantum optics applications. Gained hands-on experience with device fabrication and optical measurement techniques.",
+                image: ""
+            },
+            {
+                title: "Additional Projects",
+                description: "• Fermi Hubbard Model using Variational Quantum Eigensolver (VQE)<br>• CRC Code Implementation using SSFT<br>• Semiconductor Quantum Dots and Applications (Literature Review)<br>• Photonic Quantum Computing Systems (Literature Review)<br>• Security Analysis of Finite-Key QKD<br>• PT Symmetric Optical Systems (Literature Review)",
+                image: ""
+            }
+        ];
+
+        // BLOG POSTS
+        const blogPosts = [
+            {
+                id: 1,
+                title: "Getting Started with FDTD Simulations in COMSOL",
+                date: "January 2026",
+                excerpt: "A practical guide to setting up your first FDTD simulation for nanophotonic structures...",
+                content: `
+                    <h3>Getting Started with FDTD Simulations in COMSOL</h3>
+                    <div class="blog-date">January 2026</div>
+                    <p>This is where your full blog post content goes. You can include:</p>
+                    <ul>
+                        <li>Detailed explanations</li>
+                        <li>Code snippets</li>
+                        <li>Images and figures</li>
+                        <li>Mathematical equations</li>
+                        <li>References and links</li>
+                    </ul>
+                    <p>Write as much as you need. The full post will be displayed on its own page when clicked.</p>
+                    <h4>Setting Up the Simulation</h4>
+                    <p>Your detailed content here...</p>
+                    <h4>Analyzing Results</h4>
+                    <p>More detailed content...</p>
+                `
+            },
+            {
+                id: 2,
+                title: "My Philosophy on Scientific Research",
+                date: "December 2025",
+                excerpt: "Reflections on balancing fundamental research with practical applications...",
+                content: `
+                    <h3>My Philosophy on Scientific Research</h3>
+                    <div class="blog-date">December 2025</div>
+                    <p>Full content of your philosophical post goes here...</p>
+                `
+            },
+            {
+                id: 3,
+                title: "Useful Python Libraries for Physics Research",
+                date: "November 2025",
+                excerpt: "A curated list of Python packages that have made my research life easier...",
+                content: `
+                    <h3>Useful Python Libraries for Physics Research</h3>
+                    <div class="blog-date">November 2025</div>
+                    <p>Full content with library descriptions and examples...</p>
+                `
+            }
+        ];
+
+        // ========== END DATA SECTION ==========
+
+        // Render projects
+        function renderProjects() {
+            const currentDiv = document.getElementById('current-projects');
+            const previousDiv = document.getElementById('previous-projects');
+
+            currentDiv.innerHTML = currentProjects.map(project => `
+                <div class="project-card">
+                    <div class="project-content">
+                        <h3>${project.title}</h3>
+                        <p>${project.description}</p>
+                    </div>
+                    <div class="project-image">
+                        ${project.image ? `<img src="${project.image}" alt="${project.title}">` : 'Project Schematic'}
+                    </div>
+                </div>
+            `).join('');
+
+            previousDiv.innerHTML = previousProjects.map(project => `
+                <div class="project-card">
+                    <div class="project-content">
+                        <h3>${project.title}</h3>
+                        <p>${project.description}</p>
+                    </div>
+                    <div class="project-image">
+                        ${project.image ? `<img src="${project.image}" alt="${project.title}">` : 'Project Schematic'}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Render blog posts list
+        function renderBlogPosts() {
+            const postsDiv = document.getElementById('posts-list');
+            postsDiv.innerHTML = blogPosts.map(post => `
+                <div class="blog-post-preview" onclick="showPost(${post.id})">
+                    <h3>${post.title}</h3>
+                    <div class="blog-date">${post.date}</div>
+                    <p class="blog-excerpt">${post.excerpt}</p>
+                    <span class="read-more">Read more →</span>
+                </div>
+            `).join('');
+        }
+
+        // Show full post
+        function showPost(postId) {
+            const post = blogPosts.find(p => p.id === postId);
+            if (post) {
+                document.getElementById('post-content').innerHTML = post.content;
+                showSection('single-post');
+            }
+        }
+
+        // Section navigation
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            renderProjects();
+            renderBlogPosts();
+        });
+    </script>
+</body>
+</html>
